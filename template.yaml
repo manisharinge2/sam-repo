@@ -23,6 +23,32 @@ Resources:
           Properties:
             Path: /hello
             Method: get
+  ApiGatewayRestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties: 
+      Name: testAPI
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+      Body:
+        swagger: 2.0
+        info:
+            version: 0.0.1
+            title: test
+        basePath: /pete
+        schemes:
+            - https
+        definitions:
+            Empty:
+                type: object
+        paths:
+          /ping:
+            get:
+              responses:
+                '200':
+                  description: OK
+              x-amazon-apigateway-integration:
+                credentials: arn:aws:iam::123456789012:role/TestRole
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
